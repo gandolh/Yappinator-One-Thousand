@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, redirect, RouterProvider } from 'react-router'
 import './index.css'
 import { Home } from './modules/home/components/Home.tsx'
-import { Dashboard } from './modules/home/components/Dashboard.tsx'
+import Dashboard from './modules/home/components/Dashboard.tsx'
 
 
 const router = createBrowserRouter([
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     loader: () => {
       const convId = window.localStorage.getItem('convId')
       console.log('convId - ', convId)
-      if (convId) { return redirect('/dashboard') }
+      // if (convId) { return redirect('/dashboard') }
 
       return null; // Load and return any necessary data
     },
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     loader: () => {
       const convId = window.localStorage.getItem('convId')
       console.log('convId - ', convId)
-      if (!convId) return redirect('/')
+      // if (!convId) return redirect('/')
 
 
       return null
