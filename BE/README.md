@@ -1,2 +1,7 @@
-# HELLO WORLD
-This is a placeholder for this amazing project's backend.
+# Install
+
+Install using `npm install`
+
+# Running the app
+
+Run using `npm start`
