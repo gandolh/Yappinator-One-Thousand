@@ -11,6 +11,7 @@
     "start": "nodemon src/app.js"
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "object-hash": "^3.0.0"
   }
 }
