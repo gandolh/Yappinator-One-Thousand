@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const hash = require('object-hash');
 const connectDB = require('../config/db');
 const fileRoutes = require('../routes/fileRoutes');
@@ -12,16 +13,21 @@ connectDB();
 
 let cache = {};
 
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+
+// enabling CORS for any unknown origin
+app.use(cors());
 
 app.use(fileRoutes);
 
 app.get('/', (req, res) => {
     // Check DB connection to send health
-    res.status(200).json({ "status": {
-        "Database": "HEALTHY, I PROMISE :3",
-        "Server": "You're using it right now! ^-^"
-    }});
+    res.status(200).json({
+        "status": {
+            "Database": "HEALTHY, I PROMISE :3",
+            "Server": "You're using it right now! ^-^"
+        }
+    });
 });
 
 app.get('/1987', (req, res) => {
@@ -42,7 +48,7 @@ app.get(`${api}`, (req, res) => {
 app.post(`${api}/sendFile`, (req, res) => {
     // Replace with DB query for the check
     let requestHash = hash.MD5(req.body);
-    if(cache[requestHash]) {
+    if (cache[requestHash]) {
         res.status(400).json({ "error": "Object already exists!" })
     } else {
         // Add to DB with hash as ID, return hash only
@@ -56,7 +62,7 @@ app.get(`${api}/getCache`, (req, res) => {
 });
 
 app.get(`${api}/:ID`, (req, res) => {
-    cache[req.params.ID] 
+    cache[req.params.ID]
         ? res.status(200).json(cache[req.params.ID])
         : res.status(404).json({ "error": "Object not found" });
 });
