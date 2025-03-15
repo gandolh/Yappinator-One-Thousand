@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import ReactApexChart from "react-apexcharts"
 import { ApexOptions } from "apexcharts"
-
-export function MessagesPerMonthChart() {
+console.log('SALVATIMA DE LA NEBUNI')
+export function MessagesPerMonthChart({ data }: {
+    data: {
+        months: string[];
+        you: number[];
+        other: number[];
+    }
+}) {
     // State to track if component is mounted
     const [mounted, setMounted] = useState(false)
 
@@ -12,25 +18,17 @@ export function MessagesPerMonthChart() {
         return () => setMounted(false)
     }, [])
 
-    // Mock data for messages per month
-    const mockData = {
-        months: [
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-        ],
-        you: [78, 85, 102, 110, 125, 115, 90, 105, 118, 130, 145, 160],
-        other: [92, 88, 95, 120, 132, 105, 88, 115, 125, 140, 138, 152],
-    }
+
 
     // Series data for the chart
     const series = [
         {
             name: "You",
-            data: mockData.you,
+            data: data.you,
         },
         {
             name: "Other",
-            data: mockData.other,
+            data: data.other,
         },
     ]
 
@@ -44,7 +42,6 @@ export function MessagesPerMonthChart() {
             fontFamily: "inherit",
             animations: {
                 enabled: true,
-                easing: 'easeinout',
                 speed: 800,
             },
         },
@@ -70,7 +67,7 @@ export function MessagesPerMonthChart() {
             strokeWidth: 3,
         },
         xaxis: {
-            categories: mockData.months,
+            categories: data.months,
             labels: {
                 style: {
                     colors: "#64748b",
