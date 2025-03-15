@@ -1,14 +1,20 @@
 const express = require('express');
 const hash = require('object-hash');
+const connectDB = require('../config/db');
+const fileRoutes = require('../routes/fileRoutes');
 
 const app = express();
 const port = 4000;
 
 const api = '/api';
 
+connectDB();
+
 let cache = {};
 
 app.use(express.json());
+
+app.use(fileRoutes);
 
 app.get('/', (req, res) => {
     // Check DB connection to send health
