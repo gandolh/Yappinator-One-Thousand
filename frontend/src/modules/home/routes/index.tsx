@@ -3,6 +3,7 @@ import { queryClient } from "@/lib/queryClient";
 import Dashboard from "../components/Dashboard";
 import { Home } from "../components/Home";
 import { getConvById } from "../api";
+import { getConversationQuery } from "../querries";
 
 const checkConvId = () => {
   const convId = window.localStorage.getItem("convId");
@@ -22,14 +23,7 @@ export const HomeRoutes = [
       const convId = window.localStorage.getItem("convId");
       if (!convId) return redirect("/");
 
-      await queryClient.ensureQueryData({
-        queryKey: ["conversation", convId],
-        queryFn: async () => {
-          const res = await getConvById(convId);
-          console.log("TODO: check the format", res);
-          return res;
-        },
-      });
+      await queryClient.ensureQueryData(getConversationQuery(convId));
 
       return null;
     },
