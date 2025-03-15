@@ -1,12 +1,7 @@
 import { AlertTriangle } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-export function RedFlagsCard() {
-    const redFlags = [
-        "Takes hours to respond on weekends",
-        "Frequently cancels plans last minute",
-        "Never initiates conversations",
-    ]
+export function RedFlagsCard({ redFlags }: { redFlags: string[] }) {
 
     return (
         <Card className="bg-red-50/50">
