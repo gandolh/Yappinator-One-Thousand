@@ -1,11 +1,11 @@
 import { api } from "@/lib/axios";
 import { DashboardData } from "../types";
+import { fakeCall } from "@/lib/utils";
 
 export const MOCK_DASHBOARD_DATA : DashboardData = {
     comparisons: [
       {
         title: "Message Count",
-        icon: "MessageSquare",
         youValue: "1,245",
         otherValue: "1,387",
         youLabel: "You",
@@ -13,7 +13,6 @@ export const MOCK_DASHBOARD_DATA : DashboardData = {
       },
       {
         title: "Interest Level",
-        icon: "Heart",
         youValue: "High",
         otherValue: "Medium",
         youLabel: "You",
@@ -21,7 +20,6 @@ export const MOCK_DASHBOARD_DATA : DashboardData = {
       },
       {
         title: "Attachment Style",
-        icon: "Paperclip",
         youValue: "Secure",
         otherValue: "Anxious",
         youLabel: "You",
@@ -29,7 +27,6 @@ export const MOCK_DASHBOARD_DATA : DashboardData = {
       },
       {
         title: "Average Response Time",
-        icon: "Clock",
         youValue: "5 min",
         otherValue: "12 min",
         youLabel: "You",
@@ -37,7 +34,6 @@ export const MOCK_DASHBOARD_DATA : DashboardData = {
       },
       {
         title: "Compliment Count",
-        icon: "Award",
         youValue: "37",
         otherValue: "24",
         youLabel: "You",
@@ -82,5 +78,5 @@ export async function getCache() {
 
 export async function getConvById(convId : string){
     // return await api.get(`/api/${convId}`)
-    return {data: MOCK_DASHBOARD_DATA}
+    return fakeCall(MOCK_DASHBOARD_DATA)
 }

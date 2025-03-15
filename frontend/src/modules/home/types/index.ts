@@ -1,7 +1,6 @@
 export type DashboardData = {
     comparisons: {
       title: string;
-      icon: string;
       youValue: string;
       otherValue: string;
       youLabel: string;

@@ -1,11 +1,18 @@
-import { BarChart } from "lucide-react";
+import { Award, BarChart, Clock, Heart, MessageSquare, Paperclip } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ComparisonCard } from "@/components/ComparisonCard";
 import { RedFlagsCard } from "@/components/RedFlagsCard";
 import { TopWordsCard } from "@/components/TopWordsCard";
 import { MessagesPerMonthChart } from "@/components/MessagesPerMonthChart";
-import React from "react";
 import { useConvStats } from "../hooks/useConvStats";
+
+const icons = [
+    <MessageSquare className="w-4 h-4" />,
+    <Heart className="w-4 h-4" />,
+    <Paperclip className="w-4 h-4" />,
+    <Clock className="w-4 h-4" />,
+    <Award className="w-4 h-4" />]
+
 
 export default function Dashboard() {
     const { data } = useConvStats();
@@ -20,11 +27,11 @@ export default function Dashboard() {
                 </div>
                 <div className="container grid flex-1 items-start gap-4 px-4 py-6 sm:px-6 sm:py-8 md:gap-8 lg:px-8">
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        {comparisons.map(({ title, icon, youValue, otherValue, youLabel, otherLabel }, index) => (
+                        {comparisons.map(({ title, youValue, otherValue, youLabel, otherLabel }, index) => (
                             <ComparisonCard
                                 key={index}
                                 title={title}
-                                icon={React.createElement(eval(icon), { className: "h-4 w-4" })}
+                                icon={icons[index % icons.length]}
                                 youValue={youValue}
                                 otherValue={otherValue}
                                 youLabel={youLabel}
