@@ -8,13 +8,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { X, Upload, FileIcon } from "lucide-react"
 import { parseWapp } from "../utils"
-import { api } from "@/lib/axios"
 import { useNavigate } from "react-router"
+import { sendFile } from "../api"
 
 
 export default function FileInput() {
     const [file, setFile] = useState<File | null>(null)
-    const [fileContent, setFileContent] = useState<string | null>(null)
+    const [, setFileContent] = useState<string | null>(null)
     const inputRef = useRef<HTMLInputElement>(null)
     const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export default function FileInput() {
 
     const uploadFile = useMutation({
         mutationFn: async (data: any) => {
-            return await api.post("/api/sendFile", data)
+            return await sendFile(data);
         },
         onSuccess: (res) => {
             if (res.data.ID)

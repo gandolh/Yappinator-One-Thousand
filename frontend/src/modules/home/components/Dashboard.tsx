@@ -4,9 +4,14 @@ import { ComparisonCard } from "@/components/ComparisonCard"
 import { RedFlagsCard } from "@/components/RedFlagsCard"
 import { TopWordsCard } from "@/components/TopWordsCard"
 import { MessagesPerMonthChart } from "@/components/MessagesPerMonthChart"
+import { useConvStats } from "../hooks/useConvStats"
 // import { DetailedMessageData } from "@/components/detailed-message-data" // Uncomment to use the detailed version
 
 export default function Dashboard() {
+    const { data, isLoading, error } = useConvStats();
+    console.log('dashboard data', data, isLoading, error)
+
+
     return (
         <div className="flex min-h-screen w-full flex-col bg-muted/40">
             <div className="flex flex-col">
