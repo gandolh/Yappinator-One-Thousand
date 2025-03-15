@@ -36,7 +36,6 @@ export default function FileInput() {
         reader.onload = (e) => {
             const content = e.target?.result as string
             setFileContent(content)
-            console.log("File content:", content)
             //TODO: PARSE
             const parsed = parseWapp(content);
             console.log(parsed);
