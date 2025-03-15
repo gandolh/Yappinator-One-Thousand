@@ -1,18 +1,22 @@
-"use client"
 
 import type React from "react"
 
 import { useState, useRef } from "react"
+import { useMutation } from "@tanstack/react-query"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { X, Upload, FileIcon } from "lucide-react"
 import { parseWapp } from "../utils"
+import { api } from "@/lib/axios"
+import { useNavigate } from "react-router"
+
 
 export default function FileInput() {
     const [file, setFile] = useState<File | null>(null)
     const [fileContent, setFileContent] = useState<string | null>(null)
     const inputRef = useRef<HTMLInputElement>(null)
+    const navigate = useNavigate();
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
@@ -20,6 +24,21 @@ export default function FileInput() {
             setFileContent(null) // Reset content when new file is selected
         }
     }
+
+
+    const uploadFile = useMutation({
+        mutationFn: async (data: any) => {
+            return await api.post("/api/sendFile", data)
+        },
+        onSuccess: (res) => {
+            if (res.data.ID)
+                window.localStorage.setItem('convId', res.data.ID)
+            navigate('dashboard');
+        },
+        onError: (error) => {
+            console.error("Upload failed", error)
+        }
+    })
 
     const removeFile = () => {
         setFile(null)
@@ -36,14 +55,10 @@ export default function FileInput() {
         reader.onload = (e) => {
             const content = e.target?.result as string
             setFileContent(content)
-            console.log("File content:", content)
             //TODO: PARSE
             const parsed = parseWapp(content);
-            console.log(parsed);
             //TODO: SEND TO API
-
-            //TODO: save it to local storage
-            // window.localStorage.setItem('convId', 'id')
+            uploadFile.mutate(parsed)
         }
         reader.onerror = () => {
             console.error("Error reading file")
