@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import ReactApexChart from "react-apexcharts"
 import { ApexOptions } from "apexcharts"
-
+console.log('SALVATIMA DE LA NEBUNI')
 export function MessagesPerMonthChart({ data }: {
     data: {
         months: string[];
